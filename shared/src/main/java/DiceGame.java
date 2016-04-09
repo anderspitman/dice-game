@@ -4,19 +4,13 @@ package dice;
 public class DiceGame {
     private Die die;
     private int currentTotal;
+    private int[] lastRoll;
     private static final int MAX_TOTAL = 23;
 
     public DiceGame() {
         currentTotal = 0;
+        lastRoll = new int[3];
         die = new Die();
-    }
-
-    public int rollSingle() throws RollAfterGameOverException {
-        if (getCurrentTotal() >= MAX_TOTAL) {
-            throw new RollAfterGameOverException();
-        }
-
-        return die.roll();
     }
 
     public int roll(int numDice) throws RollAfterGameOverException {
@@ -24,7 +18,8 @@ public class DiceGame {
         int rollTotal = 0;
 
         for (int dieIndex = 0; dieIndex < numDice; dieIndex++) {
-            rollTotal += rollSingle();
+            lastRoll[dieIndex] = die.roll();
+            rollTotal += lastRoll[dieIndex];
         }
 
         currentTotal += rollTotal;

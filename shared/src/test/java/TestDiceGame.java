@@ -7,6 +7,22 @@ import dice.*;
 public class TestDiceGame {
 
     @Test
+    public void rollSingelDie() {
+        for (int rollIdx = 0; rollIdx < 1000; rollIdx++) {
+            DiceGame game = new DiceGame();
+
+            try {
+                int roll = game.rollSingle();
+                assertTrue(roll >= 1 && roll <= 6);
+            }
+            catch (RollAfterGameOverException e) {
+                fail();
+            }
+
+        }
+    }
+
+    @Test
     public void testRoll1Die() {
         for (int rollIdx = 0; rollIdx < 1000; rollIdx++) {
 
@@ -79,9 +95,8 @@ public class TestDiceGame {
 
         try {
             int total = game.roll(3);
-            int score = 23 - total;
 
-            assertEquals(score, game.getScore());
+            assertEquals(total, game.getScore());
         }
         catch (RollAfterGameOverException e) {
             fail();
@@ -137,5 +152,12 @@ public class TestDiceGame {
         catch (RollAfterGameOverException e) {
             fail();
         }
+    }
+    
+    @Test
+    public void testZeroScore() {
+        DiceGame game = new DiceGame();
+
+        assertEquals(0, game.getScore());
     }
 }

@@ -11,16 +11,20 @@ public class DiceGame {
         die = new Die();
     }
 
-    public int roll(int numDice) throws RollAfterGameOverException {
-
+    public int rollSingle() throws RollAfterGameOverException {
         if (getCurrentTotal() >= MAX_TOTAL) {
             throw new RollAfterGameOverException();
         }
 
+        return die.roll();
+    }
+
+    public int roll(int numDice) throws RollAfterGameOverException {
+
         int rollTotal = 0;
 
         for (int dieIndex = 0; dieIndex < numDice; dieIndex++) {
-            rollTotal += die.roll();
+            rollTotal += rollSingle();
         }
 
         currentTotal += rollTotal;
@@ -35,14 +39,16 @@ public class DiceGame {
     public int getScore() {
         int score;
 
-        if (getCurrentTotal() > MAX_TOTAL) {
+        int currentTotal = getCurrentTotal();
+
+        if (currentTotal > MAX_TOTAL) {
             score = 0;
         }
-        else if (getCurrentTotal() == MAX_TOTAL) {
+        else if (currentTotal == MAX_TOTAL) {
             score = 2 * MAX_TOTAL;
         }
         else {
-            score = MAX_TOTAL - getCurrentTotal();
+            score = currentTotal;
         }
 
         return score;

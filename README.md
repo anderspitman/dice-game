@@ -40,7 +40,7 @@ on your `PATH`.
 ```
 
 ### Swing GUI Version
-
+Download DiceGameUI.jar from ./gui and run it to play the game with a GUI
 ```bash
 ./gradlew :gui:run
 ```

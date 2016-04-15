@@ -47,7 +47,6 @@ below.
 ```
 
 ### Swing GUI Version
-
 ```bash
 ./gradlew :gui:run
 ```

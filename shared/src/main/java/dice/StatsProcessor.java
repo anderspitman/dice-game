@@ -16,11 +16,6 @@ public abstract class StatsProcessor {
         }
     }
 
-    public static StatsProcessor create() {
-        Database db = Database.create("concrete");
-        return create("concrete", db);
-    }
-
     public abstract String[] getPlayerList();
     public abstract StatsData getPlayerStats(String playerName);
 }

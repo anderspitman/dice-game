@@ -44,6 +44,11 @@ class MockStatsProcessor extends StatsProcessor {
         return list;
     }
 
+    /**
+     * Function that will return stats on a specific player
+     * @param  playerName - three letters for the username
+     * @return {StatsData} - StatsData object containing player info
+     */
     public StatsData getPlayerStats(String playerName) {
 
         StatsData stats;
@@ -83,6 +88,10 @@ class MockStatsProcessor extends StatsProcessor {
         return stats;
     }
 
+    /**
+     * Function to provide user with all stats
+     * @return {StatsData} - StatsData object containing all statistical data
+     */
     public StatsData getAllStats() {
         StatsData stats = new StatsData.Builder()
             .totalRolls(1001)
@@ -94,6 +103,10 @@ class MockStatsProcessor extends StatsProcessor {
         return stats;
     }
 
+    /**
+     * Function to return leader board information
+     * @return {array} - containing leader board info
+     */
     public LeaderboardEntry[] getLeaderboard() {
         LeaderboardEntry entryA = new LeaderboardEntry("TAP", 46);
         LeaderboardEntry entryB = new LeaderboardEntry("CCS", 22);
@@ -114,6 +127,10 @@ class ConcreteStatsProcessor extends StatsProcessor {
         database = db;
     }
 
+    /**
+     * Function to return a list of players in database
+     * @return {String[]} - string array containing players usernames
+     */
     public String[] getPlayerList() {
         RollRecord[] records = database.getAllRecords();
 
@@ -135,6 +152,11 @@ class ConcreteStatsProcessor extends StatsProcessor {
         return output.toArray(new String[output.size()]);
     }
 
+    /**
+     * Function to return a specific players stats
+     * @param  playerName - three letters used for username
+     * @return {StatsData} - StatsData object containg players stats
+     */
     public StatsData getPlayerStats(String playerName) {
         RollRecord[] records = database.getRecordsForUser(playerName);
 
@@ -146,12 +168,22 @@ class ConcreteStatsProcessor extends StatsProcessor {
         }
     }
 
+    /**
+     * Function to return all stats from database
+     * @return {StatsData} - StatsData object containing all statistical data
+     *                       from database
+     */
     public StatsData getAllStats() {
         RollRecord[] records = database.getAllRecords();
         StatsData returnedStats = computeStats(records);
         return returnedStats;
     }
 
+    /**
+     * Function to configure stats for the database that is provided
+     * @param  records - RollRecord object with database info
+     * @return {StatsData} - StatsData object with configured stats
+     */
     private StatsData computeStats(RollRecord[] records) {
         int dbLength = records.length;
         int totalRolls = dbLength;
@@ -210,6 +242,10 @@ class ConcreteStatsProcessor extends StatsProcessor {
             .build();
     }
 
+    /**
+     * Function to get leader board
+     * @return {LeaderboardEntry[]} - Leaderboard array containing leaderboard information
+     */
     public LeaderboardEntry[] getLeaderboard() {
         String[] players = getPlayerList();
         List<LeaderboardEntry> leaderboard = new ArrayList<LeaderboardEntry>();

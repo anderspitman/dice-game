@@ -62,10 +62,18 @@ public class DiceGame {
         return result;
     }
 
+    /**
+     * Function to get current score total
+     * @return {int} - returns the users current game score
+     */
     public int getCurrentTotal() {
         return currentTotal;
     }
 
+    /**
+     * Function to get the final score
+     * @return {int} - returns final score
+     */
     public int getScore() {
         int score;
 
@@ -84,10 +92,18 @@ public class DiceGame {
         return score;
     }
 
+    /**
+     * Function to get username
+     * @return {string} - returns the username
+     */
     public String getUsername() {
         return username;
     }
 
+    /**
+     * Function to get the next usable game ID
+     * @return {int} - next usable game ID
+     */
     private int getNextGameId() {
         RollRecord[] records = database.getAllRecords();
 
@@ -101,6 +117,12 @@ public class DiceGame {
         return maxId + 1;
     }
 
+    /**
+     * Function do ensure user name follows correct standards for database
+     * @param  username                 - the username entered by the user
+     * @throws InvalidUsernameException - exception thrown when username 
+     *             doesn't follow correct standards for database.
+     */
     private static void validateUsername(String username)
             throws InvalidUsernameException {
         final int VALID_LENGTH = 3;

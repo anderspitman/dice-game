@@ -31,6 +31,10 @@ public abstract class Database {
 }
 
 class MockDatabase extends Database {
+    /**
+     * Function to return an array containing all records found within the "database"
+     * @return {array} - Returns RollRecord
+     */
     public RollRecord[] getAllRecords() {
 
         RollRecord recordA = new RollRecord("TAP", 0, 2, 6, 6);
@@ -44,6 +48,11 @@ class MockDatabase extends Database {
         return array;
     }
 
+    /**
+     * Function to return an array containing all records for a specific user
+     * @param  userId - the user we want to see the stats of
+     * @return {array} - returns RollRecord
+     */
     public RollRecord[] getRecordsForUser(String userId) {
 
         if (userId.equals("TAP")) {
@@ -63,6 +72,10 @@ class MockDatabase extends Database {
 
     }
 
+    /**
+     * [addRoll description]
+     * @param roll [description]
+     */
     public void addRoll(RollRecord roll) {
     }
 }
@@ -74,6 +87,10 @@ class ConcreteDatabase extends Database {
         this.filename = filename;
     }
 
+    /**
+     * Function to access and return all records found within the database
+     * @return {array} - returns RollRecord containing all records in database
+     */
     public RollRecord[] getAllRecords() {
 
         List<RollRecord> records = new ArrayList<RollRecord>();
@@ -104,6 +121,11 @@ class ConcreteDatabase extends Database {
         return records.toArray(new RollRecord[records.size()]);
     }
 
+    /**
+     * Function to access and return all records of a specific user in the database
+     * @param  compUserId - the user we want to see the stats for
+     * @return {array} - returns RollRecord which contains info on specific user
+     */
     public RollRecord[] getRecordsForUser(String compUserId) {
 
         List<RollRecord> records = new ArrayList<RollRecord>();
@@ -138,6 +160,10 @@ class ConcreteDatabase extends Database {
         return records.toArray(new RollRecord[records.size()]);
     }
 
+    /**
+     * Function to add roll information to database
+     * @param roll - object containing info such as gameId, numDice, etc
+     */
     public void addRoll(RollRecord roll) {
         CSVWriter writer = getWriter();
         String[] line = {

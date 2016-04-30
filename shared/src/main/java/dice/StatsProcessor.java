@@ -199,14 +199,11 @@ class ConcreteStatsProcessor extends StatsProcessor {
             for (int index = 0; index < dbLength; index++) {
                 int temp = 0;
                 RollRecord record = records[index];
-                totalGames = record.getGameId();
                 totalDiceUsed += record.getNumDice();
             }
 
             avgNumDiceUsed = (double)totalDiceUsed / (double)dbLength;
-            totalGames = totalGames + 1;
-            avgRolls = (double)totalRolls / (double)totalGames;
-
+            totalGames = 1;
             if (dbLength > 1) {
                 for (int index = 1; index < dbLength; index++) {
                     int[] tempArray = new int[totalGames];
@@ -218,6 +215,8 @@ class ConcreteStatsProcessor extends StatsProcessor {
                     }
                     if (record.getGameId() != previousRecord.getGameId()) {
                         cumulativeScore += previousRecord.getScore();
+                        totalGames++;
+                        
                     }
                     if (index == dbLength - 1) {
                         cumulativeScore += record.getScore();
@@ -230,6 +229,7 @@ class ConcreteStatsProcessor extends StatsProcessor {
             }
 
             avgScore = cumulativeScore / totalGames;
+            avgRolls = (double)totalRolls / (double)totalGames;
         }
 
         return new StatsData.Builder()

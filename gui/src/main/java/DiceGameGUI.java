@@ -83,14 +83,14 @@ public class DiceGameGUI extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(247, 227, 174));
 
-        btnRoll.setText("ROLL");
+        btnRoll.setText("ROLL DICE");
         btnRoll.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRollActionPerformed(evt);
             }
         });
 
-        btnStop.setText("STOP");
+        btnStop.setText("THROW DICE");
         btnStop.setEnabled(false);
         btnStop.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -122,7 +122,7 @@ public class DiceGameGUI extends javax.swing.JFrame {
         });
 
         btnInstr.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        btnInstr.setText("Instruction");
+        btnInstr.setText("Instructions");
         btnInstr.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnInstrActionPerformed(evt);
@@ -138,7 +138,7 @@ public class DiceGameGUI extends javax.swing.JFrame {
 
         picDie3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dice_static.jpg"))); // NOI18N
 
-        btnReset.setText("RESET");
+        btnReset.setText("SAVE SCORE");
         btnReset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnResetActionPerformed(evt);
@@ -162,7 +162,7 @@ public class DiceGameGUI extends javax.swing.JFrame {
         });
 
         btnLeaderBoard.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        btnLeaderBoard.setText("LEADER BOARD");
+        btnLeaderBoard.setText("LEADERBOARD");
         btnLeaderBoard.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLeaderBoardActionPerformed(evt);
@@ -304,6 +304,18 @@ public class DiceGameGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
+        if (thisGame.getCurrentTotal() < 23) {
+            //Display pop up showing score before starting new game.
+            JOptionPane.showMessageDialog(
+            null, 
+            "Game Over! You save your score of " 
+            + thisGame.getCurrentTotal()
+            + "\nFinal Score: "
+            + thisGame.getScore(),
+            "Game Over!",
+            JOptionPane.OK_OPTION);
+        }
+        
         // TODO add your handling code here:
         String name = lblPlayerName.getText();
         
@@ -371,7 +383,9 @@ public class DiceGameGUI extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(
                     null, 
                     "Game Over! You went over 23 by " 
-                            + (thisGame.getCurrentTotal()-23),
+                    + (thisGame.getCurrentTotal()-23)
+                    + "\nFinal Score: "
+                    + tScore,
                     "Game Over!",
                     JOptionPane.OK_OPTION);
             btnRoll.setEnabled(false);
@@ -380,8 +394,10 @@ public class DiceGameGUI extends javax.swing.JFrame {
         else if (thisGame.getCurrentTotal() == 23){
             JOptionPane.showMessageDialog(
                     null, 
-                    "Congratulation! You hit 23!!!",
-                    "Game Over!",
+                    "Congratulations! You hit 23!"
+                    + "\nFinal Score: "
+                    + tScore,
+                    "Congratulations!",
                     JOptionPane.OK_OPTION);
             btnRoll.setEnabled(false);
             btnStop.setEnabled(false);
